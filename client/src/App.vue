@@ -12,4 +12,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+* {
+  font-family: "Poppins", system-ui;
+}
+
+body {
+  margin: 0;
+}
+</style>
