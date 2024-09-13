@@ -1,6 +1,7 @@
 <template>
   <section class="recipes-wrapper">
-    <h2 class="recipes-title">Minhas Receitas</h2>
+    <h2 class="recipes-title">Todas as Receitas</h2>
+    <!-- Input de filtro -->
     <div class="recipes-search-wrapper">
       <input
         class="filter-input"
@@ -8,6 +9,7 @@
         placeholder="Filtrar receitas pelo nome"
       />
 
+      <!-- Lista de receitas -->
       <ul class="recipes-list">
         <li
           v-for="recipe in filteredRecipes"
@@ -23,33 +25,37 @@
 
 <script>
 export default {
-  name: "UserRecipes",
+  name: "SiteRecipes",
   data() {
     return {
-      recipes: [],
-      searchQuery: "",
+      recipes: [], // Armazena todas as receitas
+      searchQuery: "", // Consulta de pesquisa para filtrar receitas
     };
   },
   computed: {
+    // Retorna as receitas filtradas e ordenadas em ordem alfabética
     filteredRecipes() {
       return this.recipes
         .filter((recipe) =>
           recipe.name.toLowerCase().includes(this.searchQuery.toLowerCase())
         )
-        .sort((a, b) => a.name.localeCompare(b.name));
+        .sort((a, b) => a.name.localeCompare(b.name)); // Ordena alfabeticamente
     },
   },
   mounted() {
+    // Simulando uma chamada API para carregar todas as receitas
     this.loadRecipes();
   },
   methods: {
     loadRecipes() {
+      // Simula o carregamento de receitas do servidor (substitua por sua API)
       this.recipes = [
-        { id: 1, name: "Bolo de Chocolate" },
-        { id: 2, name: "Torta de Maçã" },
-        { id: 3, name: "Pão de Queijo" },
-        { id: 4, name: "Lasanha" },
-        { id: 5, name: "Pizza Caseira" },
+        { id: 1, name: "Bolo de Cenoura" },
+        { id: 2, name: "Frango Xadrez" },
+        { id: 3, name: "Pão de Alho" },
+        { id: 4, name: "Macarrão à Bolonhesa" },
+        { id: 5, name: "Sopa de Lentilha" },
+        { id: 6, name: "Pudim de Leite" },
       ];
     },
   },
