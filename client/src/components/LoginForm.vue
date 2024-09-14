@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import { loginUser, registerUser } from "@/services/user";
+
 export default {
   name: "UserForm",
   data() {
@@ -52,8 +54,34 @@ export default {
     submitForm() {
       if (this.isCadastro) {
         console.log("Cadastrando", this.nome, this.login, this.senha);
+        this.registerUser();
       } else {
         console.log("Logando", this.login, this.senha);
+        this.makeLogin();
+      }
+    },
+    async makeLogin() {
+      try {
+        const response = await loginUser(this.login, this.senha);
+
+        if (response.status === 200) {
+          this.$router.push("/");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Login ou senha incorretos");
+      }
+    },
+    async registerUser() {
+      try {
+        const response = await registerUser(this.nome, this.login, this.senha);
+
+        if (response.status === 201) {
+          this.$router.push("/");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Erro ao cadastrar");
       }
     },
   },

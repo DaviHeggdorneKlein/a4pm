@@ -4,14 +4,47 @@
       <router-link class="nav-link" to="/">Home</router-link>
     </div>
     <div class="login-wrapper">
-      <router-link class="nav-link" to="/login">Entrar</router-link>
+      <router-link v-if="!isLoggedIn" class="nav-link" to="/login">
+        Entrar
+      </router-link>
+      <a v-else class="nav-link" href="#" @click.prevent="handleLogout">
+        Sair
+      </a>
     </div>
   </nav>
 </template>
 
 <script>
+import { getUserInfo, logoutUser } from "../services/user";
+
 export default {
   name: "NavbarComponent",
+  data() {
+    return {
+      isLoggedIn: false,
+    };
+  },
+  async created() {
+    try {
+      const user = await getUserInfo();
+      if (user) {
+        this.isLoggedIn = true;
+      }
+    } catch (error) {
+      this.isLoggedIn = false;
+    }
+  },
+  methods: {
+    async handleLogout() {
+      try {
+        await logoutUser();
+        this.isLoggedIn = false;
+        this.$router.push("/login");
+      } catch (error) {
+        console.error("Erro ao fazer logout:", error);
+      }
+    },
+  },
 };
 </script>
 
