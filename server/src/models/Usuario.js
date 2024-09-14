@@ -4,6 +4,11 @@ const sequelize = require("../config/db");
 const Usuario = sequelize.define(
   "Usuario",
   {
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     nome: { type: DataTypes.STRING },
     login: { type: DataTypes.STRING, unique: true },
     senha: { type: DataTypes.STRING },
@@ -12,6 +17,7 @@ const Usuario = sequelize.define(
   },
   {
     timestamps: false,
+    tableName: "usuarios",
   }
 );
 

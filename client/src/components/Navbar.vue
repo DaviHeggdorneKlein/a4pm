@@ -4,6 +4,9 @@
       <router-link class="nav-link" to="/">Home</router-link>
     </div>
     <div class="login-wrapper">
+      <router-link v-if="isLoggedIn" class="nav-link" to="/receita/adicionar">
+        Adicionar Receita
+      </router-link>
       <router-link v-if="!isLoggedIn" class="nav-link" to="/login">
         Entrar
       </router-link>
