@@ -12,23 +12,10 @@ class RecipeController {
 
   async listarTodasReceitas(req, res) {
     try {
-      const recipes = await ReceitaRepository.buscarTodasReceitas();
+      const recipes = await ReceitaRepository.buscarTodas();
       res.status(200).json(recipes);
     } catch (error) {
       res.status(500).json({ message: "Erro ao listar receitas", error });
-    }
-  }
-
-  async listarReceitasUsuario(req, res) {
-    try {
-      const recipes = await ReceitaRepository.buscarReceitasPorUsuario(
-        req.params.id_usuario
-      );
-      res.status(200).json(recipes);
-    } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Erro ao listar receitas do usuário", error });
     }
   }
 

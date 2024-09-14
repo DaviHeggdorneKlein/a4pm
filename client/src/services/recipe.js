@@ -12,10 +12,6 @@ export const getAllRecipes = async () => {
   return api.get("/recipe");
 };
 
-export const getUserRecipes = async (id_usuario) => {
-  return api.get(`/recipe/user/${id_usuario}`, { withCredentials: true });
-};
-
 export const getRecipeById = async (id) => {
   return api.get(`/recipe/${id}`);
 };

@@ -53,10 +53,8 @@ export default {
     },
     submitForm() {
       if (this.isCadastro) {
-        console.log("Cadastrando", this.nome, this.login, this.senha);
         this.registerUser();
       } else {
-        console.log("Logando", this.login, this.senha);
         this.makeLogin();
       }
     },
@@ -131,6 +129,11 @@ export default {
   );
   border: none;
   cursor: pointer;
+  transition: all 0.3s;
+}
+
+.form-submit-button:hover {
+  opacity: 0.9;
 }
 
 .toggle-form-link {

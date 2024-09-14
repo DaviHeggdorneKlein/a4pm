@@ -19,15 +19,6 @@ class ReceitaRepository {
     }
   }
 
-  async buscarPorUsuario(id_usuarios) {
-    try {
-      return await Receita.findAll({ where: { id_usuarios } });
-    } catch (error) {
-      console.error("Erro ao buscar receitas por usuário:", error.message);
-      throw error;
-    }
-  }
-
   async buscarTodas() {
     try {
       return await Receita.findAll();

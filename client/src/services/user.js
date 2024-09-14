@@ -15,7 +15,6 @@ export const logoutUser = async () => {
 export const getUserInfo = async () => {
   try {
     const response = await api.get("/user/info");
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Erro ao obter informações do usuário:", error);

@@ -14,7 +14,15 @@
           :key="recipe.id"
           class="recipe-item"
         >
-          {{ recipe.name }}
+          {{ recipe.nome }}
+          <div class="recipe-actions">
+            <button @click="editRecipe(recipe.id)" class="edit-recipe-btn">
+              Editar
+            </button>
+            <button @click="deleteRecipe(recipe.id)" class="delete-recipe-btn">
+              Excluir
+            </button>
+          </div>
         </li>
       </ul>
     </div>
@@ -24,33 +32,40 @@
 <script>
 export default {
   name: "UserRecipes",
+  props: {
+    recipes: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
-      recipes: [],
       searchQuery: "",
     };
   },
   computed: {
     filteredRecipes() {
       return this.recipes
-        .filter((recipe) =>
-          recipe.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+        .filter(
+          (recipe) =>
+            recipe.nome &&
+            recipe.nome.toLowerCase().includes(this.searchQuery.toLowerCase())
         )
-        .sort((a, b) => a.name.localeCompare(b.name));
+        .sort((a, b) => a.nome.localeCompare(b.nome));
     },
   },
-  mounted() {
-    this.loadRecipes();
-  },
   methods: {
-    loadRecipes() {
-      this.recipes = [
-        { id: 1, name: "Bolo de Chocolate" },
-        { id: 2, name: "Torta de Maçã" },
-        { id: 3, name: "Pão de Queijo" },
-        { id: 4, name: "Lasanha" },
-        { id: 5, name: "Pizza Caseira" },
-      ];
+    editRecipe(recipeId) {
+      this.$router.push(`/receita/editar?id=${recipeId}`);
+    },
+    deleteRecipe(recipeId) {
+      // Aqui pode ser feita a lógica para confirmar a exclusão
+      // e chamar uma função de API para deletar a receita
+      if (confirm("Tem certeza que deseja excluir essa receita?")) {
+        // Lógica para excluir a receita
+        console.log(`Receita ${recipeId} excluída`);
+        // Aqui você pode fazer a chamada à API ou serviço de exclusão
+      }
     },
   },
 };
@@ -99,5 +114,44 @@ export default {
   margin: 0.5rem 0;
   padding: 0.5rem;
   border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipe-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-recipe-btn,
+.delete-recipe-btn {
+  padding: 0.5rem 1rem;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.edit-recipe-btn {
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(38, 51, 97, 1) 0%,
+    rgba(65, 143, 222, 1) 79%
+  );
+}
+
+.delete-recipe-btn {
+  background-image: radial-gradient(
+    circle farthest-corner at 17.1% 22.8%,
+    rgba(226, 24, 24, 1) 0%,
+    rgba(160, 6, 6, 1) 90%
+  );
+}
+
+.edit-recipe-btn:hover,
+.delete-recipe-btn:hover {
+  opacity: 0.9;
 }
 </style>

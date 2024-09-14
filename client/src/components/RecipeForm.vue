@@ -10,38 +10,35 @@
         placeholder="Nome da Receita"
         required
       />
-
       <input
         class="form-input"
-        type="number"
+        type="text"
         v-model="tempo_preparo_minutos"
-        placeholder="Tempo de Preparo (minutos)"
+        placeholder="Tempo de Preparo em Minutos"
+        @input="validateNumber('tempo_preparo_minutos')"
         required
       />
-
       <input
         class="form-input"
-        type="number"
+        type="text"
         v-model="porcoes"
         placeholder="Porções"
+        @input="validateNumber('porcoes')"
         required
       />
-
       <textarea
-        class="form-input"
+        class="form-input text-area"
         v-model="ingredientes"
         placeholder="Ingredientes"
         required
       ></textarea>
-
       <textarea
-        class="form-input"
+        class="form-input text-area"
         v-model="modo_preparo"
         placeholder="Modo de Preparo"
         required
       ></textarea>
-
-      <select v-model="id_categoria" required>
+      <select class="form-input" v-model="id_categorias" required>
         <option disabled value="">Selecione uma Categoria</option>
         <option
           v-for="categoria in categorias"
@@ -51,7 +48,6 @@
           {{ categoria.nome }}
         </option>
       </select>
-
       <button class="form-submit-button" type="submit">
         {{ isEditing ? "Salvar Alterações" : "Adicionar Receita" }}
       </button>
@@ -60,55 +56,64 @@
 </template>
 
 <script>
-import { getUserInfo } from "@/services/user";
-import { addRecipe, editRecipe, getRecipeById } from "@/services/recipe";
+import { addRecipe, editRecipe } from "@/services/recipe";
 import { getCategories } from "@/services/category";
 
 export default {
   name: "RecipeForm",
+  props: {
+    userId: {
+      type: Number,
+      required: true,
+    },
+    recipe: {
+      type: Object,
+      default: null,
+    },
+  },
   data() {
     return {
       isEditing: false,
-      id_categoria: "",
+      id_categorias: "",
       nome: "",
-      tempo_preparo_minutos: 0,
-      porcoes: 0,
+      tempo_preparo_minutos: "",
+      porcoes: "",
       ingredientes: "",
       modo_preparo: "",
-      id_usuario: null,
       categorias: [],
     };
   },
   async created() {
-    const userInfo = await getUserInfo();
-    this.id_usuario = userInfo.id;
-
     this.categorias = await getCategories();
 
-    if (this.$route.params.id) {
+    if (this.recipe) {
       this.isEditing = true;
       this.loadRecipeData();
     }
   },
   methods: {
-    async loadRecipeData() {
-      const recipe = await getRecipeById(this.$route.params.id);
-      this.id_categoria = recipe.id_categoria;
+    loadRecipeData() {
+      const recipe = this.recipe;
+      this.id_categorias = recipe.id_categorias;
       this.nome = recipe.nome;
       this.tempo_preparo_minutos = recipe.tempo_preparo_minutos;
       this.porcoes = recipe.porcoes;
       this.ingredientes = recipe.ingredientes;
       this.modo_preparo = recipe.modo_preparo;
     },
+    validateNumber(field) {
+      const input = this[field];
+      this[field] = input.replace(/[^0-9]/g, "");
+    },
     async submitForm() {
       const recipeData = {
-        id_categoria: this.id_categoria,
+        id_categorias: this.id_categorias,
         nome: this.nome,
         tempo_preparo_minutos: this.tempo_preparo_minutos,
         porcoes: this.porcoes,
         ingredientes: this.ingredientes,
         modo_preparo: this.modo_preparo,
-        id_usuario: this.id_usuario,
+        id_usuarios: this.userId,
       };
 
       if (this.isEditing) {
@@ -116,7 +121,7 @@ export default {
       } else {
         await addRecipe(recipeData);
       }
-      this.$router.push("/recipes");
+      this.$router.push("/");
     },
   },
 };
@@ -165,11 +170,20 @@ export default {
   );
   border: none;
   cursor: pointer;
+  transition: all 0.3s;
+}
+
+.form-submit-button:hover {
+  opacity: 0.9;
 }
 
 .toggle-form-link {
   color: #2a4275;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.text-area {
+  resize: none;
 }
 </style>

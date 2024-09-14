@@ -14,7 +14,7 @@ app.use(cookieParser());
 
 app.use("/api/user", userRoutes);
 app.use("/api/category", categoriaRoutes);
-app.use("/api/recipes", receitaRoutes);
+app.use("/api/recipe", receitaRoutes);
 
 sequelize.sync().then(() => {
   app.listen(3000, () => console.log("Server running on port 3000"));
