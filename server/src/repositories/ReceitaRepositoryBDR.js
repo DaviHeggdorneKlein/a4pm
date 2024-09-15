@@ -2,7 +2,7 @@ const Usuario = require("../models/Usuario");
 const Categoria = require("../models/Categoria");
 const Receita = require("../models/Receita");
 
-class ReceitaRepository {
+class ReceitaRepositoryBDR {
   async criarReceita(receitaData) {
     try {
       return await Receita.create(receitaData);
@@ -61,4 +61,4 @@ class ReceitaRepository {
   }
 }
 
-module.exports = new ReceitaRepository();
+module.exports = new ReceitaRepositoryBDR();

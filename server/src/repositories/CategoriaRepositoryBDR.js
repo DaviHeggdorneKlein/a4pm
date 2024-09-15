@@ -1,6 +1,6 @@
 const Categoria = require("../models/Categoria");
 
-class CategoriaRepository {
+class CategoriaRepositoryBDR {
   async buscarTodas() {
     try {
       return await Categoria.findAll();
@@ -11,4 +11,4 @@ class CategoriaRepository {
   }
 }
 
-module.exports = new CategoriaRepository();
+module.exports = new CategoriaRepositoryBDR();

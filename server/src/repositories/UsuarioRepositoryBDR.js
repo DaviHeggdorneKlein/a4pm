@@ -1,6 +1,6 @@
 const Usuario = require("../models/Usuario");
 
-class UsuarioRepository {
+class UsuarioRepositoryBDR {
   async criarUsuario(usuarioData) {
     try {
       return await Usuario.create(usuarioData);
@@ -19,4 +19,4 @@ class UsuarioRepository {
   }
 }
 
-module.exports = new UsuarioRepository();
+module.exports = new UsuarioRepositoryBDR();

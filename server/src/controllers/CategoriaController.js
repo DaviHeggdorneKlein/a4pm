@@ -1,9 +1,9 @@
-const CategoriaRepository = require("../repositories/CategoriaRepository");
+const CategoriaRepositoryBDR = require("../repositories/CategoriaRepositoryBDR");
 
 class CategoriaController {
   async buscarTodas(req, res) {
     try {
-      const categorias = await CategoriaRepository.buscarTodas();
+      const categorias = await CategoriaRepositoryBDR.buscarTodas();
       res.json(categorias);
     } catch (error) {
       res

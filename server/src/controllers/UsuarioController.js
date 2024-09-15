@@ -1,4 +1,4 @@
-const UsuarioRepository = require("../repositories/UsuarioRepository");
+const UsuarioRepositoryBDR = require("../repositories/UsuarioRepositoryBDR");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -12,7 +12,7 @@ class UsuarioController {
       }
 
       const hashedPassword = await bcrypt.hash(senha, 8);
-      const usuario = await UsuarioRepository.criarUsuario({
+      const usuario = await UsuarioRepositoryBDR.criarUsuario({
         nome,
         login,
         senha: hashedPassword,
@@ -42,7 +42,7 @@ class UsuarioController {
   async login(req, res) {
     try {
       const { login, senha } = req.body;
-      const usuario = await UsuarioRepository.buscarPorLogin(login);
+      const usuario = await UsuarioRepositoryBDR.buscarPorLogin(login);
 
       if (!usuario || !(await bcrypt.compare(senha, usuario.senha))) {
         return res.status(401).json({ message: "Login ou senha incorretos" });
@@ -67,7 +67,7 @@ class UsuarioController {
 
   async obterInformacoes(req, res) {
     try {
-      const usuario = await UsuarioRepository.buscarPorId(req.usuario.id);
+      const usuario = await UsuarioRepositoryBDR.buscarPorId(req.usuario.id);
 
       if (!usuario) {
         return res.status(404).json({ message: "Usuário não encontrado" });
