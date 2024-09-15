@@ -84,6 +84,7 @@ export default {
     };
   },
   async mounted() {
+    console.log(this.recipe);
     this.categorias = await getCategories();
     if (this.recipe) {
       this.isEditing = true;
@@ -104,7 +105,7 @@ export default {
   methods: {
     loadRecipeData() {
       const recipe = this.recipe;
-      this.id_categorias = recipe.id_categorias;
+      this.id_categorias = recipe.Categorium.id;
       this.nome = recipe.nome;
       this.tempo_preparo_minutos = recipe.tempo_preparo_minutos;
       this.porcoes = recipe.porcoes;

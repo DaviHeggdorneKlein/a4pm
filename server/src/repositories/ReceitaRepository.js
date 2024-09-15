@@ -1,3 +1,5 @@
+const Usuario = require("../models/Usuario");
+const Categoria = require("../models/Categoria");
 const Receita = require("../models/Receita");
 
 class ReceitaRepository {
@@ -12,7 +14,19 @@ class ReceitaRepository {
 
   async buscarPorId(id) {
     try {
-      return await Receita.findByPk(id);
+      return await Receita.findByPk(id, {
+        attributes: { exclude: ["id_usuarios", "id_categorias"] },
+        include: [
+          {
+            model: Usuario,
+            attributes: ["id", "nome"],
+          },
+          {
+            model: Categoria,
+            attributes: ["id", "nome"],
+          },
+        ],
+      });
     } catch (error) {
       console.error("Erro ao buscar receita por ID:", error.message);
       throw error;

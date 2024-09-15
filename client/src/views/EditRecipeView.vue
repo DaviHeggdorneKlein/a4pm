@@ -31,7 +31,9 @@ export default {
       }
       const recipe = await getRecipeById(recipeId);
       this.recipeData = recipe.data;
-      if (this.recipeData.id_usuarios !== this.userId) {
+      console.log(recipe.data);
+      console.log("salve");
+      if (this.recipeData.Usuario.id !== this.userId) {
         this.$router.push("/");
         return;
       }

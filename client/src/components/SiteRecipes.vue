@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     goToRecipe(recipeId) {
-      this.$router.push(`/receita/${recipeId}`);
+      this.$router.push(`/receita?id=${recipeId}`);
     },
   },
 };
