@@ -45,7 +45,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .home {
   display: grid;
   gap: 2rem;
@@ -60,5 +60,35 @@ export default {
 
 .home .site-recipes {
   width: 100%;
+}
+
+.recipes-list {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(38, 51, 97, 1) rgba(65, 143, 222, 1);
+}
+
+.recipes-list::-webkit-scrollbar {
+  width: 12px;
+}
+
+.recipes-list::-webkit-scrollbar-track {
+  background: rgba(65, 143, 222, 1);
+}
+
+.recipes-list::-webkit-scrollbar-thumb {
+  background: rgba(38, 51, 97, 1);
+  border-radius: 6px;
+}
+.recipes-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(28, 40, 80, 1); /* Cor mais escura ao passar o mouse */
+}
+
+@media (max-width: 1280px) {
+  .home {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: calc(100% - 4rem) !important;
+  }
 }
 </style>

@@ -141,4 +141,18 @@ export default {
   text-decoration: underline;
   cursor: pointer;
 }
+
+@media (max-width: 680px) {
+  .form-wrapper {
+    width: calc(100% - 8rem);
+  }
+
+  .form-title {
+    font-size: 24px;
+  }
+
+  .form-submit-button {
+    font-size: 16px;
+  }
+}
 </style>

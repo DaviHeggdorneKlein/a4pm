@@ -62,7 +62,6 @@ export default {
 .recipes-wrapper {
   border: 3px solid #2a4275;
   border-radius: 16px;
-  max-height: 800px;
   height: fit-content;
 }
 
@@ -92,6 +91,8 @@ export default {
 }
 
 .recipes-list {
+  max-height: 800px;
+  overflow-y: auto;
   list-style-type: none;
   padding: 0;
 }
@@ -118,9 +119,28 @@ export default {
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s;
+  min-width: 110px;
 }
 
 .view-recipe-btn:hover {
   opacity: 0.9;
+}
+
+@media (max-width: 640px) {
+  .recipes-title {
+    text-align: center;
+  }
+  .recipe-item {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .recipe-item {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
 }
 </style>
