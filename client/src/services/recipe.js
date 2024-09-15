@@ -17,5 +17,6 @@ export const getRecipeById = async (id) => {
 };
 
 export const deleteRecipe = async (id) => {
+  console.log(`salve ${id}`);
   return api.delete(`/recipe/${id}`, { withCredentials: true });
 };

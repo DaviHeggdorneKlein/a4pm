@@ -19,7 +19,7 @@
             <button @click="editRecipe(recipe.id)" class="edit-recipe-btn">
               Editar
             </button>
-            <button @click="deleteRecipe(recipe.id)" class="delete-recipe-btn">
+            <button @click="delRecipe(recipe.id)" class="delete-recipe-btn">
               Excluir
             </button>
           </div>
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { deleteRecipe } from "../services/recipe";
+
 export default {
   name: "UserRecipes",
   props: {
@@ -58,13 +60,10 @@ export default {
     editRecipe(recipeId) {
       this.$router.push(`/receita/editar?id=${recipeId}`);
     },
-    deleteRecipe(recipeId) {
-      // Aqui pode ser feita a lógica para confirmar a exclusão
-      // e chamar uma função de API para deletar a receita
+    async delRecipe(recipeId) {
       if (confirm("Tem certeza que deseja excluir essa receita?")) {
-        // Lógica para excluir a receita
-        console.log(`Receita ${recipeId} excluída`);
-        // Aqui você pode fazer a chamada à API ou serviço de exclusão
+        await deleteRecipe(recipeId);
+        location.reload();
       }
     },
   },
