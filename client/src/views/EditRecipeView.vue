@@ -24,21 +24,17 @@ export default {
     try {
       const userInfo = await getUserInfo();
       this.userId = userInfo.id;
+      const recipeId = this.$route.query.id;
 
-      const recipeId = this.$route.params.id;
       if (!recipeId) {
         this.$router.push("/");
-        return;
       }
-
       const recipe = await getRecipeById(recipeId);
-
-      if (recipe.id_usuarios !== this.userId) {
+      this.recipeData = recipe.data;
+      if (this.recipeData.id_usuarios !== this.userId) {
         this.$router.push("/");
         return;
       }
-
-      this.recipeData = recipe;
     } catch (error) {
       this.$router.push("/");
     }

@@ -28,7 +28,7 @@ class ReceitaRepository {
     }
   }
 
-  async atualizarReceita(id, receitaData) {
+  async editarReceita(id, receitaData) {
     try {
       return await Receita.update(receitaData, { where: { id } });
     } catch (error) {
@@ -37,7 +37,7 @@ class ReceitaRepository {
     }
   }
 
-  async deletarReceita(id) {
+  async excluirReceita(id) {
     try {
       return await Receita.destroy({ where: { id } });
     } catch (error) {

@@ -83,13 +83,23 @@ export default {
       categorias: [],
     };
   },
-  async created() {
+  async mounted() {
     this.categorias = await getCategories();
-
     if (this.recipe) {
       this.isEditing = true;
       this.loadRecipeData();
     }
+  },
+  watch: {
+    recipe: {
+      immediate: true,
+      handler(newRecipe) {
+        if (newRecipe) {
+          this.isEditing = true;
+          this.loadRecipeData();
+        }
+      },
+    },
   },
   methods: {
     loadRecipeData() {
@@ -117,7 +127,7 @@ export default {
       };
 
       if (this.isEditing) {
-        await editRecipe(this.$route.params.id, recipeData);
+        await editRecipe(this.recipe.id, recipeData);
       } else {
         await addRecipe(recipeData);
       }
