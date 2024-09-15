@@ -28,16 +28,22 @@ export default {
     };
   },
   async created() {
-    try {
-      const user = await getUserInfo();
-      if (user) {
-        this.isLoggedIn = true;
-      }
-    } catch (error) {
-      this.isLoggedIn = false;
-    }
+    await this.checkLoginStatus();
+  },
+  watch: {
+    $route() {
+      this.checkLoginStatus();
+    },
   },
   methods: {
+    async checkLoginStatus() {
+      try {
+        const user = await getUserInfo();
+        this.isLoggedIn = !!user;
+      } catch (error) {
+        this.isLoggedIn = false;
+      }
+    },
     async handleLogout() {
       try {
         await logoutUser();
