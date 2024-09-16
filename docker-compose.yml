@@ -1,0 +1,41 @@
+version: "3"
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: teste_receitas_rg_sistemas
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db_data:/docker-entrypoint-initdb.d
+      - dbdata:/var/lib/mysql
+
+  server:
+    build: ./server
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: ""
+      DB_NAME: teste_receitas_rg_sistemas
+    volumes:
+      - ./server:/usr/src/app
+    working_dir: /usr/src/app
+    depends_on:
+      - db
+    command: npm run dev
+    ports:
+      - "3000:3000"
+
+  client:
+    build: ./client
+    volumes:
+      - ./client:/usr/src/app
+    working_dir: /usr/src/app
+    command: npm run serve
+    ports:
+      - "8080:8080"
+
+volumes:
+  dbdata:
