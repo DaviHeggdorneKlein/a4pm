@@ -1,5 +1,5 @@
 <template>
-  <section class="form-wrapper">
+  <section id="login-form-wrapper" class="form-wrapper">
     <h2 class="form-title">{{ isCadastro ? "Cadastro" : "Login" }}</h2>
     <form class="user-form" @submit.prevent="submitForm">
       <input

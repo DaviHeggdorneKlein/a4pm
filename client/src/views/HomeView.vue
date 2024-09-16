@@ -56,6 +56,7 @@ export default {
 
 .home-full-width {
   grid-template-columns: 1fr;
+  width: calc(100% - 4rem);
 }
 
 .home .site-recipes {
